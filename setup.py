@@ -46,8 +46,8 @@ class PyTest(TestCommand):
 
 
 setup(
-    name='inquirer',
-    version=__version__,
+    name='inquirer_plus',
+    version="beta-0.1",
     description=(
         "Collection of common interactive command line user interfaces,"
         " based on Inquirer.js"

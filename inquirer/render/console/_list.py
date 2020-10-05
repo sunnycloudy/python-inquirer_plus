@@ -52,14 +52,45 @@ class List(BaseConsoleRender):
             yield choice, symbol, color
 
     def process_input(self, pressed):
+        #question = self.question
+        #if pressed == key.UP:
+        #    if question.carousel and self.current == 0:
+        #        self.current = len(question.choices) - 1
+        #    else:
+        #        self.current = max(0, self.current - 1)
+        #    return
+        #if pressed == key.DOWN:
+        #    if question.carousel and self.current == len(question.choices) - 1:
+        #        self.current = 0
+        #    else:
+        #        self.current = min(
+        #            len(self.question.choices) - 1,
+        #            self.current + 1
+        #        )
+        #    return
+        #if pressed == key.ENTER:
+        #    value = self.question.choices[self.current]
+        #    raise errors.EndOfInput(getattr(value, 'value', value))
+
+        #if pressed == key.CTRL_C:
+        #    raise KeyboardInterrupt()
+
         question = self.question
-        if pressed == key.UP:
+        #if pressed == key.UP:
+        if pressed == 'k' or pressed == key.UP or pressed == '\x10':
             if question.carousel and self.current == 0:
                 self.current = len(question.choices) - 1
             else:
                 self.current = max(0, self.current - 1)
             return
-        if pressed == key.DOWN:
+        if pressed == '\x15':  #ctrl_u in mac
+            if question.carousel and self.current == 0:
+                self.current = len(question.choices) - 3
+            else:
+                self.current = max(0, self.current - 3)
+            return
+        #if pressed == key.DOWN:
+        if pressed == 'j' or pressed == key.DOWN or pressed == '\x0e':
             if question.carousel and self.current == len(question.choices) - 1:
                 self.current = 0
             else:
@@ -68,12 +99,22 @@ class List(BaseConsoleRender):
                     self.current + 1
                 )
             return
+        if pressed == key.CTRL_D:
+            if question.carousel and self.current == len(question.choices) - 1:
+                self.current = 0
+            else:
+                self.current = min(
+                    len(self.question.choices) - 1,
+                    self.current + 3
+                )
+            return
         if pressed == key.ENTER:
             value = self.question.choices[self.current]
             raise errors.EndOfInput(getattr(value, 'value', value))
 
         if pressed == key.CTRL_C:
             raise KeyboardInterrupt()
+
 
     def _current_index(self):
         try:
