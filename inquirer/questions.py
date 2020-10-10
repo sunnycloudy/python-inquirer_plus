@@ -134,7 +134,8 @@ class Question(object):
         if callable(prop):
             return prop(self.answers, *args, **kwargs)
         if isinstance(prop, str):
-            return prop.format(**self.answers)
+            #return prop.format(**self.answers)
+            return prop
         return prop
 
 
